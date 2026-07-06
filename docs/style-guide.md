@@ -59,6 +59,16 @@ Use these values directly for standalone HTML. Translate them into the host desi
 
 For Korean content, keep body text in a readable sans. Serif headings can work, but avoid fragile decorative Hangul display treatment unless the project already has a suitable Korean serif font.
 
+Korean display serif text needs visibly looser line-height than Latin display text:
+
+- Hero H1: `1.14-1.22` on desktop; `1.24-1.34` on mobile or narrow columns.
+- Prompt quote and large editorial paragraphs: `1.42-1.58`.
+- Section H2: `1.20-1.30`.
+- Card H3: `1.28-1.38`.
+- Small serif labels/headings inside rows or cards: at least `1.34`.
+
+Never use sub-1.0 display line-height for Korean hero text. If Hangul strokes feel stacked or the clay italic line touches the black line above it, increase line-height before changing font size.
+
 ## Layout
 
 - Use max-width 980px for focused reports.
