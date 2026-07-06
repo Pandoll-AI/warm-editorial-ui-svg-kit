@@ -40,6 +40,7 @@ For galleries or card indexes, use a compact grid of paper cards with inline SVG
 - Use `#141413` slate for primary text and `#D97757` clay only for thin lines, labels, warnings, and small emphasis.
 - Use serif type for H1/H2/card titles, sans for body copy, and mono for labels, file paths, metadata, code, and controls.
 - For Korean serif display text, keep line-height generous: about 1.16+ for desktop hero text, 1.24+ on mobile, 1.42+ for prompt quotes, and 1.28+ for card titles.
+- Keep long Korean prompt quotes and final synthesis headlines one visual step below hero/section scale: prompt quote around 28px desktop max with loose line-height, final synthesis around 40px desktop max and 25px mobile when the sentence wraps.
 - Prefer 1.5px warm gray borders over shadows. Use shadows only on hover or final emphasis.
 - Keep radius modest: 8-14px.
 - Use generous outer whitespace and dense but readable inner report structure.

@@ -88,6 +88,8 @@ Small mono uppercase label with a short clay line before it. Use it to declare t
 
 White paper card with a mono label and an italic serif prompt quote. Include a compact copy button when useful.
 
+Prompt quotes are important, but they should not compete with the hero title. For Korean prompt text in a report artifact, keep the desktop max around `28px` with a loose `1.50-1.64` line-height. If a prompt spans multiple Korean lines and feels poster-sized, reduce the font before reducing card padding.
+
 ### Divider
 
 Centered mono label with horizontal lines on both sides. Use it to separate "input" from "output" or one report phase from another.
@@ -120,6 +122,8 @@ Use for risks, blindspots, unknowns, review findings, or decisions. Each card sh
 Use for the final instruction, improved prompt, decision, or next action. Make it feel conclusive with a darker border or subtle shadow.
 
 When a final card starts with a mono label such as `SYNTHESIS`, `FINAL PROMPT`, or `DECISION`, leave visible air before the serif headline. Use about `18-24px` between the label and H2. Do not let the label feel glued to the display sentence.
+
+Final synthesis headlines should feel decisive, not oversized. For Korean synthesis H2 text, use a size step below normal section H2 when the sentence is long: about `40px` desktop max and `25px` on mobile, with `1.30-1.38` line-height.
 
 ## Interaction
 
