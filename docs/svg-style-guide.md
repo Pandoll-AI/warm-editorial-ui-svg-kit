@@ -46,6 +46,8 @@ Recommended sizing:
 - Card radius: `8px` to `12px`.
 - SVG inner margin: `8` to `12` viewBox units.
 - Main object footprint: 70-85% of the viewBox.
+- Rendered SVG width inside a 132px thumbnail band: usually `144-156px`, or about 72-78% of the card width.
+- The drawing should visually occupy roughly 75-88% of the thumbnail band. If the thumbnail background reads larger than the symbol, scale the SVG up before adding detail.
 
 The SVG should still read when reduced to a card thumbnail. Prefer one dominant object plus two or three supporting marks.
 
@@ -160,6 +162,7 @@ Use these archetypes from `assets/svg-sample-types.html`:
 Before delivering SVG-heavy Warm Editorial UI, verify:
 
 - Every inline SVG has a fixed viewBox and accessible label.
+- SVG thumbnails use enough of their available tile area. Avoid leaving large dead margins around the drawing unless whitespace is the subject.
 - The SVG remains legible at its final rendered size.
 - Shapes use the warm token palette and do not drift into generic blue/purple SaaS styling.
 - Stroke hierarchy is clear: primary ink, secondary gray, accent clay/olive.

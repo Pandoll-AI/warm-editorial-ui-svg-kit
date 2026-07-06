@@ -119,6 +119,8 @@ Use for risks, blindspots, unknowns, review findings, or decisions. Each card sh
 
 Use for the final instruction, improved prompt, decision, or next action. Make it feel conclusive with a darker border or subtle shadow.
 
+When a final card starts with a mono label such as `SYNTHESIS`, `FINAL PROMPT`, or `DECISION`, leave visible air before the serif headline. Use about `18-24px` between the label and H2. Do not let the label feel glued to the display sentence.
+
 ## Interaction
 
 - Hover cards: `transform: translateY(-3px)` and a soft shadow.

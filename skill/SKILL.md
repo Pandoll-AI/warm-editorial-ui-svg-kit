@@ -43,8 +43,9 @@ For galleries or card indexes, use a compact grid of paper cards with inline SVG
 - Prefer 1.5px warm gray borders over shadows. Use shadows only on hover or final emphasis.
 - Keep radius modest: 8-14px.
 - Use generous outer whitespace and dense but readable inner report structure.
+- Put clear air between mono labels and serif display headings. In final cards or synthesis blocks, use about 18-24px below labels like `SYNTHESIS` before the H2.
 - Make hover motion subtle: translate up 2-3px with a soft shadow.
-- Draw SVG assets with warm fills, round strokes, restrained primitive geometry, and visible hover states. Use `references/svg-style-guide.md` as the source of truth.
+- Draw SVG assets with warm fills, round strokes, restrained primitive geometry, and visible hover states. Use `references/svg-style-guide.md` as the source of truth. Thumbnail SVGs should occupy the available visual field, not sit small inside the tile.
 
 ## Avoid
 
