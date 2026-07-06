@@ -1,0 +1,4 @@
+interface:
+  display_name: "Warm Editorial UI"
+  short_description: "Warm editorial HTML and SVG artifact UI style"
+  default_prompt: "Use $warm-editorial-ui to turn this report, article, or AI output into a polished warm editorial HTML artifact with matching SVG cards when useful."

@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SVG Variant Gallery</title>
+<style>
+  :root {
+    --ivory: #FAF9F5;
+    --paper: #FFFFFF;
+    --slate: #141413;
+    --clay: #D97757;
+    --clay-d: #B85C3E;
+    --oat: #E3DACC;
+    --olive: #788C5D;
+    --g100: #F0EEE6;
+    --g200: #E6E3DA;
+    --g300: #D1CFC5;
+    --g500: #87867F;
+    --g700: #3D3D3A;
+    --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at 8% 0%, rgba(217, 119, 87, .08), transparent 28rem),
+      linear-gradient(135deg, rgba(227, 218, 204, .34), rgba(250, 249, 245, 0) 42rem),
+      var(--ivory);
+    color: var(--slate);
+    font-family: var(--sans);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    width: min(1120px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 52px 0 72px;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    color: var(--g500);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 24px;
+    height: 1.5px;
+    background: var(--clay);
+    flex: none;
+  }
+
+  .head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 500;
+    letter-spacing: -0.018em;
+    line-height: 1.04;
+  }
+
+  .tokens {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 420px;
+  }
+
+  .token {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1.5px solid var(--g300);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .7);
+    padding: 4px 10px;
+    color: var(--g700);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .04em;
+  }
+
+  .sw {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .sw.clay { background: var(--clay); }
+  .sw.olive { background: var(--olive); }
+  .sw.oat { background: var(--oat); border: 1px solid var(--g300); }
+  .sw.slate { background: var(--slate); }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .sample {
+    position: relative;
+    min-width: 0;
+    background: var(--paper);
+    border: 1.5px solid var(--g300);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  }
+
+  .sample:hover,
+  .sample:focus-within {
+    border-color: var(--clay);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(20, 20, 19, .09);
+  }
+
+  .thumb {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background:
+      linear-gradient(180deg, rgba(250, 249, 245, .95), rgba(240, 238, 230, .86)),
+      var(--g100);
+    border-bottom: 1.5px solid var(--g200);
+  }
+
+  .thumb svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .body {
+    padding: 14px 15px 16px;
+  }
+
+  .meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 7px;
+  }
+
+  .num {
+    color: var(--clay-d);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+  }
+
+  h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.012em;
+    line-height: 1.14;
+  }
+
+  .tag {
+    border: 1px solid var(--g300);
+    border-radius: 999px;
+    padding: 2px 8px;
+    color: var(--g500);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .notes {
+    margin: 0;
+    color: var(--g700);
+    font-size: 13px;
+  }
+
+  .preview {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border: 1.5px solid rgba(227, 218, 204, .65);
+    border-radius: 10px;
+    background: rgba(20, 20, 19, .86);
+    color: var(--ivory);
+    padding: 7px 10px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 160ms ease, transform 160ms ease;
+    pointer-events: none;
+  }
+
+  .sample:hover .preview,
+  .sample:focus-within .preview {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .preview b {
+    color: var(--oat);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .preview span {
+    color: var(--g300);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .paper { fill: var(--paper); }
+  .ivory { fill: var(--ivory); }
+  .g100 { fill: var(--g100); }
+  .g200 { fill: var(--g200); }
+  .g300 { fill: var(--g300); }
+  .g500 { fill: var(--g500); }
+  .slate { fill: var(--slate); }
+  .clay { fill: var(--clay); }
+  .clay-d { fill: var(--clay-d); }
+  .oat { fill: var(--oat); }
+  .olive { fill: var(--olive); }
+  .none { fill: none; }
+  .stroke-slate { stroke: var(--slate); }
+  .stroke-clay { stroke: var(--clay); }
+  .stroke-clay-d { stroke: var(--clay-d); }
+  .stroke-oat { stroke: var(--oat); }
+  .stroke-olive { stroke: var(--olive); }
+  .stroke-g300 { stroke: var(--g300); }
+  .stroke-g500 { stroke: var(--g500); }
+  .line {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .dash {
+    fill: none;
+    stroke: var(--clay);
+    stroke-width: 2;
+    stroke-dasharray: 6 5;
+    stroke-linecap: round;
+    animation: dash-walk 6s linear infinite;
+  }
+  .thin { stroke-width: 1.5; }
+  .mid { stroke-width: 2; }
+  .text {
+    fill: var(--g700);
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .02em;
+  }
+  .text-serif {
+    fill: var(--slate);
+    font-family: var(--serif);
+    font-size: 13px;
+  }
+  .hover-layer {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+  .sample:hover .hover-layer,
+  .sample:focus-within .hover-layer {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .pulse {
+    transform-origin: center;
+    animation: marker-pulse 2.8s ease-in-out infinite;
+  }
+  .float {
+    animation: soft-float 4.5s ease-in-out infinite;
+  }
+
+  @keyframes dash-walk {
+    to { stroke-dashoffset: -44; }
+  }
+
+  @keyframes marker-pulse {
+    0%, 100% { opacity: .74; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.04); }
+  }
+
+  @keyframes soft-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+
+  @media (max-width: 980px) {
+    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 620px) {
+    .wrap {
+      width: min(100% - 28px, 1120px);
+      padding-top: 36px;
+    }
+    .head {
+      display: block;
+      margin-bottom: 22px;
+    }
+    .tokens {
+      justify-content: flex-start;
+      margin-top: 18px;
+    }
+    .gallery { grid-template-columns: 1fr; }
+  }
+
+  @media (hover: none) {
+    .preview,
+    .hover-layer {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="eyebrow">Know your unknowns / SVG harness</div>
+
+  <div class="head">
+    <h1>Original-style thumbnail variants</h1>
+    <div class="tokens" aria-label="Palette tokens">
+      <span class="token"><span class="sw clay"></span>clay</span>
+      <span class="token"><span class="sw olive"></span>olive</span>
+      <span class="token"><span class="sw oat"></span>oat</span>
+      <span class="token"><span class="sw slate"></span>slate</span>
+    </div>
+  </div>
+
+  <section class="gallery" aria-label="SVG thumbnail samples">
+    <article class="sample" tabindex="0">
+      <div class="thumb">
+        <svg viewBox="0 0 320 240" role="img" aria-label="Blindspot stack thumbnail">
+          <rect class="ivory" width="320" height="240"/>
+          <rect class="paper stroke-g300 thin" x="35" y="31" width="250" height="172" rx="12"/>
+          <rect class="g100" x="35" y="31" width="250" height="33" rx="12"/>
+          <path class="line stroke-g300 thin" d="M35 64H285"/>
+          <circle class="g300" cx="53" cy="48" r="4"/>
+          <circle class="g300" cx="68" cy="48" r="4"/>
+          <circle class="clay" cx="83" cy="48" r="4"/>
+          <rect class="paper stroke-g300 thin float" x="59" y="84" width="86" height="72" rx="9"/>
+          <rect class="paper stroke-g300 thin float" x="118" y="99" width="86" height="72" rx="9"/>
+          <rect class="paper stroke-clay thin pulse" x="176" y="76" width="86" height="72" rx="9"/>
+          <path class="dash" d="M189 92H247M189 113H233M189 134H253"/>
+          <rect class="oat" x="72" y="101" width="46" height="7" rx="3.5"/>
+          <rect class="g200" x="72" y="120" width="52" height="6" rx="3"/>
+          <rect class="olive" x="132" y="117" width="32" height="7" rx="3.5"/>
+          <path class="line stroke-clay mid" d="M150 83l24 17"/>
+          <g class="hover-layer">
+            <rect class="slate" x="93" y="169" width="132" height="22" rx="7"/>
+            <text class="text" x="107" y="183" fill="#FAF9F5">missing history found</text>
+          </g>
+        </svg>
+        <div class="preview"><b>Hover state</b><span>dashed stack lifts</span></div>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">01</span><span class="tag">audit</span></div>
+        <h2>Blindspot stack</h2>
+        <p class="notes">Layered paper cards with one clay dashed unknown panel.</p>
+      </div>
+    </article>
+
+    <article class="sample" tabindex="0">
+      <div class="thumb">
+        <svg viewBox="0 0 320 240" role="img" aria-label="Callback fork thumbnail">
+          <rect class="ivory" width="320" height="240"/>
+          <rect class="paper stroke-g300 thin" x="34" y="34" width="252" height="172" rx="12"/>
+          <text class="text-serif" x="55" y="65">redirect map</text>
+          <rect class="g100 stroke-g300 thin" x="55" y="88" width="72" height="30" rx="8"/>
+          <rect class="oat stroke-g300 thin" x="193" y="88" width="72" height="30" rx="8"/>
+          <rect class="g100 stroke-g300 thin" x="55" y="149" width="72" height="30" rx="8"/>
+          <rect class="paper stroke-clay thin pulse" x="193" y="149" width="72" height="30" rx="8"/>
+          <path class="line stroke-g500 thin" d="M127 103H193"/>
+          <path class="line stroke-g500 thin" d="M91 118v31"/>
+          <path class="dash" d="M127 164H193"/>
+          <path class="line stroke-olive mid" d="M229 118v31"/>
+          <circle class="clay" cx="159" cy="164" r="5"/>
+          <text class="text" x="69" y="107">login</text>
+          <text class="text" x="209" y="107">state</text>
+          <text class="text" x="63" y="168">tenant</text>
+          <text class="text" x="207" y="168">invite?</text>
+          <g class="hover-layer">
+            <path class="line stroke-clay-d mid" d="M172 154l17 10-17 10"/>
+            <rect class="slate" x="108" y="52" width="112" height="20" rx="6"/>
+            <text class="text" x="120" y="66" fill="#FAF9F5">workspace claim</text>
+          </g>
+        </svg>
+        <div class="preview"><b>Hover state</b><span>missing route resolves</span></div>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">02</span><span class="tag">flow</span></div>
+        <h2>Callback fork</h2>
+        <p class="notes">Compact node flow with an unanswered path called out.</p>
+      </div>
+    </article>
+
+    <article class="sample" tabindex="0">
+      <div class="thumb">
+        <svg viewBox="0 0 320 240" role="img" aria-label="Palette sweep thumbnail">
+          <rect class="ivory" width="320" height="240"/>
+          <rect class="paper stroke-g300 thin" x="36" y="33" width="248" height="174" rx="12"/>
+          <rect class="slate" x="57" y="55" width="206" height="82" rx="10"/>
+          <circle class="clay" cx="84" cy="92" r="18"/>
+          <circle class="oat" cx="128" cy="92" r="18"/>
+          <circle class="olive" cx="172" cy="92" r="18"/>
+          <circle class="paper" cx="216" cy="92" r="18"/>
+          <path class="dash" d="M62 156H258"/>
+          <rect class="g100 stroke-g300 thin" x="62" y="170" width="48" height="15" rx="5"/>
+          <rect class="g100 stroke-g300 thin" x="119" y="170" width="48" height="15" rx="5"/>
+          <rect class="g100 stroke-g300 thin" x="176" y="170" width="48" height="15" rx="5"/>
+          <path class="line stroke-oat mid" d="M82 113l0 24M128 113l0 24M172 113l0 24M216 113l0 24"/>
+          <g class="hover-layer">
+            <rect class="clay" x="64" y="62" width="38" height="60" rx="8"/>
+            <rect class="olive" x="152" y="62" width="38" height="60" rx="8"/>
+            <text class="text" x="68" y="181">token</text>
+          </g>
+        </svg>
+        <div class="preview"><b>Hover state</b><span>active swatches deepen</span></div>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">03</span><span class="tag">tokens</span></div>
+        <h2>Palette sweep</h2>
+        <p class="notes">Warm token strip with slate stage contrast.</p>
+      </div>
+    </article>
+
+    <article class="sample" tabindex="0">
+      <div class="thumb">
+        <svg viewBox="0 0 320 240" role="img" aria-label="Permission rail thumbnail">
+          <rect class="ivory" width="320" height="240"/>
+          <rect class="paper stroke-g300 thin" x="35" y="30" width="250" height="178" rx="12"/>
+          <rect class="slate" x="56" y="52" width="48" height="134" rx="14"/>
+          <circle class="oat" cx="80" cy="78" r="11"/>
+          <circle class="g500" cx="80" cy="111" r="11"/>
+          <circle class="clay" cx="80" cy="144" r="11"/>
+          <rect class="g100 stroke-g300 thin" x="126" y="61" width="116" height="26" rx="7"/>
+          <rect class="g100 stroke-g300 thin" x="126" y="103" width="116" height="26" rx="7"/>
+          <rect class="paper stroke-clay thin pulse" x="126" y="145" width="116" height="26" rx="7"/>
+          <path class="dash" d="M253 74c21 18 21 66 0 84"/>
+          <path class="line stroke-olive mid" d="M142 74h42M142 116h68"/>
+          <path class="line stroke-clay mid" d="M142 158h36"/>
+          <g class="hover-layer">
+            <rect class="olive" x="202" y="150" width="25" height="16" rx="8"/>
+            <circle class="paper" cx="219" cy="158" r="6"/>
+          </g>
+        </svg>
+        <div class="preview"><b>Hover state</b><span>permission toggle opens</span></div>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">04</span><span class="tag">toolbar</span></div>
+        <h2>Permission rail</h2>
+        <p class="notes">Dark tool rail with a dashed authorization edge.</p>
+      </div>
+    </article>
+
+    <article class="sample" tabindex="0">
+      <div class="thumb">
+        <svg viewBox="0 0 320 240" role="img" aria-label="Review timeline thumbnail">
+          <rect class="ivory" width="320" height="240"/>
+          <rect class="paper stroke-g300 thin" x="37" y="31" width="246" height="176" rx="12"/>
+          <path class="line stroke-g300 mid" d="M74 58v122"/>
+          <circle class="olive" cx="74" cy="74" r="10"/>
+          <circle class="oat stroke-g300 thin" cx="74" cy="113" r="10"/>
+          <circle class="paper stroke-clay thin pulse" cx="74" cy="152" r="10"/>
+          <rect class="g100 stroke-g300 thin" x="97" y="62" width="148" height="25" rx="8"/>
+          <rect class="g100 stroke-g300 thin" x="97" y="101" width="118" height="25" rx="8"/>
+          <rect class="paper stroke-clay thin" x="97" y="140" width="148" height="25" rx="8"/>
+          <path class="dash" d="M112 153h92"/>
+          <text class="text" x="111" y="78">baseline</text>
+          <text class="text" x="111" y="117">change</text>
+          <text class="text" x="111" y="156">proof gap</text>
+          <g class="hover-layer">
+            <rect class="slate" x="182" y="144" width="50" height="17" rx="5"/>
+            <text class="text" x="190" y="156" fill="#FAF9F5">fix</text>
+          </g>
+        </svg>
+        <div class="preview"><b>Hover state</b><span>gap gets labeled</span></div>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">05</span><span class="tag">proof</span></div>
+        <h2>Review timeline</h2>
+        <p class="notes">Sequenced proof states with one unresolved stop gate.</p>
+      </div>
+    </article>
+
+    <article class="sample" tabindex="0">
+      <div class="thumb">
+        <svg viewBox="0 0 320 240" role="img" aria-label="Prompt contract thumbnail">
+          <rect class="ivory" width="320" height="240"/>
+          <rect class="paper stroke-g300 thin" x="34" y="30" width="252" height="178" rx="12"/>
+          <rect class="g100" x="34" y="30" width="252" height="34" rx="12"/>
+          <path class="line stroke-g300 thin" d="M34 64H286"/>
+          <text class="text" x="57" y="51">prompt.md</text>
+          <path class="line stroke-oat mid" d="M61 91h94M61 118h154M61 145h112M61 172h130"/>
+          <rect class="paper stroke-clay thin pulse" x="184" y="132" width="57" height="28" rx="7"/>
+          <path class="dash" d="M194 146h36"/>
+          <rect class="olive" x="225" y="81" width="36" height="17" rx="6"/>
+          <text class="text" x="232" y="93" fill="#FAF9F5">exit</text>
+          <g class="hover-layer">
+            <path class="line stroke-clay-d mid" d="M179 147h-18"/>
+            <circle class="clay" cx="157" cy="147" r="4"/>
+            <text class="text" x="189" y="151">?</text>
+          </g>
+        </svg>
+        <div class="preview"><b>Hover state</b><span>blank contract slot</span></div>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">06</span><span class="tag">prompt</span></div>
+        <h2>Prompt contract</h2>
+        <p class="notes">Code-like rows, an exit chip, and a dashed missing clause.</p>
+      </div>
+    </article>
+
+    <article class="sample" tabindex="0">
+      <div class="thumb">
+        <svg viewBox="0 0 320 240" role="img" aria-label="Schema drift thumbnail">
+          <rect class="ivory" width="320" height="240"/>
+          <rect class="paper stroke-g300 thin" x="34" y="32" width="252" height="174" rx="12"/>
+          <rect class="g100" x="55" y="56" width="210" height="32" rx="8"/>
+          <path class="line stroke-g300 thin" d="M55 102H265M55 135H265M55 168H265"/>
+          <path class="line stroke-g300 thin" d="M126 56v133M196 56v133"/>
+          <rect class="oat" x="65" y="66" width="47" height="9" rx="4"/>
+          <rect class="olive" x="137" y="66" width="47" height="9" rx="4"/>
+          <rect class="clay" x="208" y="66" width="34" height="9" rx="4"/>
+          <path class="line stroke-oat mid" d="M68 118h36M138 118h39M208 118h32"/>
+          <path class="dash" d="M138 151h38M208 151h38"/>
+          <rect class="paper stroke-clay thin pulse" x="130" y="141" width="124" height="23" rx="6"/>
+          <g class="hover-layer">
+            <path class="line stroke-olive mid" d="M72 181h176"/>
+            <text class="text" x="79" y="195">schema adds default</text>
+          </g>
+        </svg>
+        <div class="preview"><b>Hover state</b><span>drift row reconciles</span></div>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">07</span><span class="tag">schema</span></div>
+        <h2>Schema drift</h2>
+        <p class="notes">Table-shaped primitive diagram with a clay drift band.</p>
+      </div>
+    </article>
+
+    <article class="sample" tabindex="0">
+      <div class="thumb">
+        <svg viewBox="0 0 320 240" role="img" aria-label="Hover overlay thumbnail">
+          <rect class="ivory" width="320" height="240"/>
+          <rect class="paper stroke-g300 thin" x="33" y="30" width="254" height="178" rx="12"/>
+          <rect class="slate" x="54" y="54" width="212" height="118" rx="12"/>
+          <path class="oat" d="M68 151l45-47 35 35 32-25 69 37v11H68z"/>
+          <circle class="clay" cx="216" cy="83" r="17"/>
+          <rect class="paper" x="76" y="74" width="76" height="20" rx="7" opacity=".9"/>
+          <path class="dash" d="M87 137c35-25 82-23 126 0"/>
+          <rect class="paper" x="72" y="184" width="176" height="8" rx="4"/>
+          <rect class="clay" x="72" y="184" width="78" height="8" rx="4"/>
+          <circle class="clay stroke-g100 thin" cx="150" cy="188" r="8"/>
+          <g class="hover-layer">
+            <rect class="paper" x="87" y="105" width="146" height="34" rx="17" opacity=".96"/>
+            <circle class="clay" cx="111" cy="122" r="7"/>
+            <circle class="olive" cx="139" cy="122" r="7"/>
+            <circle class="oat stroke-g300 thin" cx="167" cy="122" r="7"/>
+            <path class="line stroke-slate mid" d="M195 117l10 10 18-20"/>
+          </g>
+        </svg>
+        <div class="preview"><b>Hover state</b><span>inline controls appear</span></div>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">08</span><span class="tag">preview</span></div>
+        <h2>Hover overlay</h2>
+        <p class="notes">Dark media stage with paper controls revealed on hover.</p>
+      </div>
+    </article>
+  </section>
+</main>
+</body>
+</html>

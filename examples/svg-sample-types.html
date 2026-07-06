@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>html-effectiveness SVG Sample Types</title>
+<style>
+  :root {
+    --ivory: #FAF9F5;
+    --paper: #FFFFFF;
+    --slate: #141413;
+    --clay: #D97757;
+    --clay-d: #B85C3E;
+    --oat: #E3DACC;
+    --olive: #788C5D;
+    --g100: #F0EEE6;
+    --g200: #E6E3DA;
+    --g300: #D1CFC5;
+    --g500: #87867F;
+    --g700: #3D3D3A;
+    --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at 92% 7%, rgba(217,119,87,.12), transparent 32%),
+      var(--ivory);
+    color: var(--slate);
+    font-family: var(--sans);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 72px 32px 120px; }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--g500);
+    margin-bottom: 18px;
+  }
+  .eyebrow::before { content: ""; width: 24px; height: 1.5px; background: var(--clay); }
+  h1, h2, h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -.018em;
+    margin: 0;
+  }
+  h1 { font-size: clamp(42px, 6vw, 74px); max-width: 920px; }
+  h1 em { color: var(--clay); font-style: italic; }
+  .lede {
+    max-width: 780px;
+    margin: 22px 0 0;
+    color: var(--g700);
+    font-size: 17px;
+  }
+  .guide {
+    margin-top: 32px;
+    background: rgba(255,255,255,.78);
+    border: 1.5px solid var(--g300);
+    border-radius: 14px;
+    padding: 22px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+  }
+  .guide b {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--clay-d);
+    margin-bottom: 5px;
+  }
+  .guide p { margin: 0; color: var(--g700); font-size: 14px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 22px;
+    margin-top: 56px;
+  }
+  .card {
+    background: var(--paper);
+    border: 1.5px solid var(--g300);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 420px;
+    transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--slate);
+    box-shadow: 0 10px 30px rgba(20,20,19,.10);
+  }
+  .thumb {
+    height: 142px;
+    background: var(--g100);
+    border-bottom: 1.5px solid var(--g200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 18px;
+    transition: background 150ms ease;
+  }
+  .card:hover .thumb { background: var(--oat); }
+  .thumb svg { width: 100%; height: 100%; overflow: visible; }
+  .thumb svg .st { stroke: var(--g500); fill: none; stroke-width: 2.5; }
+  .thumb svg .fl { fill: var(--g300); }
+  .thumb svg .cl { fill: var(--clay); }
+  .thumb svg .ol { fill: var(--olive); }
+  .thumb svg .oa { fill: var(--oat); stroke: var(--g500); stroke-width: 2.5; }
+  .thumb svg .sl { fill: var(--slate); }
+  .thumb svg .wh { fill: var(--paper); stroke: var(--g500); stroke-width: 2.5; }
+  .thumb svg .ln { stroke: var(--g500); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+  .thumb svg .lc { stroke: var(--clay); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+  .thumb svg .lo { stroke: var(--olive); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+  .thumb svg .da { stroke-dasharray: 4 4; }
+  .card:hover .thumb svg .fl { fill: var(--g500); }
+  .card:hover .thumb svg .oa { fill: var(--paper); }
+  .body {
+    padding: 20px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: var(--clay-d);
+    font-weight: 700;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--g500);
+    border: 1px solid var(--g200);
+    border-radius: 999px;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+  h3 { font-size: 22px; margin-bottom: 8px; }
+  .intent {
+    font-size: 14.5px;
+    color: var(--slate);
+    margin: 0 0 12px;
+  }
+  .desc {
+    margin: 0;
+    color: var(--g700);
+    font-size: 13.5px;
+    flex: 1;
+  }
+  .style-note {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--g100);
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.55;
+    color: var(--g500);
+  }
+  .arrow {
+    color: var(--g300);
+    display: inline-block;
+    transition: transform 150ms ease, color 150ms ease;
+  }
+  .card:hover .arrow { transform: translateX(3px); color: var(--clay); }
+  footer {
+    margin-top: 80px;
+    border-top: 1.5px solid var(--g300);
+    padding-top: 28px;
+    color: var(--g500);
+    font-size: 13px;
+  }
+  code {
+    font-family: var(--mono);
+    background: var(--g100);
+    border: 1px solid var(--g200);
+    border-radius: 5px;
+    padding: 1px 5px;
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="eyebrow">Applied SVG kit · html-effectiveness unknowns</div>
+  <h1>10 SVG sample types for drawing <em>new unknowns</em>.</h1>
+  <p class="lede">원본의 SVG 문법을 응용해 목적별로 다시 그린 샘플입니다. 각 SVG는 복사해서 새 artifact 카드, 설명 페이지, 설계 하니스에 바로 응용할 수 있도록 의도와 스타일링 설명을 같이 붙였습니다.</p>
+
+  <section class="guide" aria-label="SVG grammar guide">
+    <div><b>Canvas</b><p>모든 thumbnail은 <code>viewBox="0 0 120 80"</code> 기준입니다.</p></div>
+    <div><b>Primitive</b><p><code>rect</code>, <code>line</code>, <code>circle</code>, 간단한 <code>path</code>만 씁니다.</p></div>
+    <div><b>Unknown</b><p>불확실성은 clay dashed line, 빈 원, 끊긴 edge로 표현합니다.</p></div>
+    <div><b>Hover</b><p>path morph 없이 fill swap, card lift, arrow nudge만 씁니다.</p></div>
+  </section>
+
+  <section class="grid">
+    <article class="card">
+      <div class="thumb">
+        <svg viewBox="0 0 120 80" aria-label="Blindspot radar SVG">
+          <rect class="wh" x="10" y="9" width="72" height="62" rx="6"/>
+          <line class="ln" x1="20" y1="22" x2="60" y2="22"/>
+          <line class="ln" x1="20" y1="34" x2="68" y2="34"/>
+          <line class="lc" x1="20" y1="46" x2="48" y2="46"/>
+          <line class="ln" x1="20" y1="58" x2="62" y2="58"/>
+          <circle class="cl" cx="68" cy="34" r="3.5"/>
+          <circle class="lc da" cx="96" cy="28" r="18"/>
+          <circle class="ol" cx="96" cy="28" r="7"/>
+          <line class="lc" x1="84" y1="42" x2="75" y2="52"/>
+          <rect class="fl" x="73" y="57" width="34" height="10" rx="4"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">01</span><span class="tag">Audit</span></div>
+        <h3>Blindspot radar</h3>
+        <p class="intent">의도: 문서나 코드에서 아직 보지 못한 위험 지점을 찾는 카드.</p>
+        <p class="desc">문서 본문은 회색 라인으로, 발견된 단서는 clay 점으로, 아직 검증되지 않은 영역은 dashed circle로 표현합니다.</p>
+        <div class="style-note">Style: document + clay marker + dashed unknown target <span class="arrow">→</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <svg viewBox="0 0 120 80" aria-label="Decision fork SVG">
+          <rect class="oa" x="12" y="12" width="32" height="14" rx="4"/>
+          <rect class="wh" x="75" y="10" width="32" height="14" rx="4"/>
+          <rect class="wh" x="75" y="34" width="32" height="14" rx="4"/>
+          <rect class="oa" x="75" y="58" width="32" height="14" rx="4"/>
+          <line class="ln" x1="44" y1="19" x2="62" y2="19"/>
+          <path class="ln" d="M62 19 C 68 19, 68 17, 75 17"/>
+          <path class="lc da" d="M62 19 C 70 19, 68 41, 75 41"/>
+          <path class="lo" d="M62 19 C 70 19, 68 65, 75 65"/>
+          <circle class="cl" cx="62" cy="19" r="3.5"/>
+          <circle class="lc da" cx="91" cy="41" r="11"/>
+          <line class="ln" x1="20" y1="19" x2="36" y2="19"/>
+          <line class="ln" x1="83" y1="17" x2="99" y2="17"/>
+          <line class="ln" x1="83" y1="65" x2="99" y2="65"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">02</span><span class="tag">Choice</span></div>
+        <h3>Decision fork</h3>
+        <p class="intent">의도: 구현 전에 선택지가 갈라지는 지점을 표시.</p>
+        <p class="desc">확정 경로는 gray/olive, 다시 물어봐야 하는 경로는 clay dashed curve로 표시합니다.</p>
+        <div class="style-note">Style: branching connector + dashed unresolved branch <span class="arrow">→</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <svg viewBox="0 0 120 80" aria-label="Verification rail SVG">
+          <line class="ln" x1="14" y1="18" x2="106" y2="18"/>
+          <circle class="ol" cx="24" cy="18" r="5"/>
+          <circle class="ol" cx="47" cy="18" r="5"/>
+          <circle class="cl" cx="70" cy="18" r="5"/>
+          <circle class="st da" cx="96" cy="18" r="5"/>
+          <rect class="wh" x="12" y="33" width="96" height="29" rx="5"/>
+          <rect class="cl" x="21" y="41" width="7" height="7" rx="2"/>
+          <line class="ln" x1="36" y1="42" x2="83" y2="42"/>
+          <line class="lc" x1="36" y1="52" x2="68" y2="52"/>
+          <rect class="oa" x="88" y="40" width="12" height="12" rx="3"/>
+          <line class="lc da" x1="22" y1="70" x2="96" y2="70"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">03</span><span class="tag">Proof</span></div>
+        <h3>Verification rail</h3>
+        <p class="intent">의도: 작업 단계와 검증 상태를 한 번에 보여주는 rail.</p>
+        <p class="desc">완료는 olive, 현재 실패/위험은 clay, 아직 남은 단계는 dashed circle로 구분합니다.</p>
+        <div class="style-note">Style: state dots + proof card + deferred dashed baseline <span class="arrow">→</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <svg viewBox="0 0 120 80" aria-label="Reference parity SVG">
+          <rect class="wh" x="8" y="10" width="45" height="58" rx="6"/>
+          <rect class="wh" x="67" y="10" width="45" height="58" rx="6"/>
+          <line class="ln" x1="17" y1="23" x2="43" y2="23"/>
+          <line class="lc" x1="17" y1="35" x2="46" y2="35"/>
+          <line class="ln" x1="17" y1="47" x2="37" y2="47"/>
+          <line class="ln" x1="76" y1="23" x2="102" y2="23"/>
+          <line class="lc da" x1="76" y1="35" x2="104" y2="35"/>
+          <line class="ln" x1="76" y1="47" x2="96" y2="47"/>
+          <line class="lc da" x1="52" y1="35" x2="67" y2="35"/>
+          <circle class="ol" cx="60" cy="60" r="6"/>
+          <path class="ln" d="M57.5 60 l2 2 l4 -5" style="stroke:#FAF9F5"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">04</span><span class="tag">Port</span></div>
+        <h3>Reference parity</h3>
+        <p class="intent">의도: 원본 구현과 포팅 구현의 의미가 맞는지 비교.</p>
+        <p class="desc">두 문서를 나란히 놓고, 차이가 있는 줄은 clay/dashed로 연결합니다. 통과한 parity는 olive check로 닫습니다.</p>
+        <div class="style-note">Style: paired pages + clay diff link + olive pass marker <span class="arrow">→</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <svg viewBox="0 0 120 80" aria-label="Prompt contract SVG">
+          <rect class="wh" x="12" y="8" width="96" height="64" rx="6"/>
+          <rect class="oa" x="12" y="8" width="96" height="17" rx="6"/>
+          <line class="ln" x1="24" y1="38" x2="68" y2="38"/>
+          <line class="ln" x1="24" y1="49" x2="76" y2="49"/>
+          <line class="ln" x1="24" y1="60" x2="55" y2="60"/>
+          <rect class="ol" x="82" y="33" width="16" height="9" rx="4"/>
+          <rect class="wh" x="77" y="50" width="26" height="14" rx="4"/>
+          <line class="lc da" x1="82" y1="57" x2="97" y2="57"/>
+          <line class="cl" x1="18" y1="31" x2="18" y2="64"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">05</span><span class="tag">Prompt</span></div>
+        <h3>Prompt contract</h3>
+        <p class="intent">의도: 최종 프롬프트나 작업 계약의 필수 조건을 표시.</p>
+        <p class="desc">문서 header, 좌측 clay rule, exit chip, dashed missing clause로 “아직 명시해야 할 조건”을 드러냅니다.</p>
+        <div class="style-note">Style: prompt document + exit chip + missing-clause dash <span class="arrow">→</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <svg viewBox="0 0 120 80" aria-label="Schema drift SVG">
+          <rect class="wh" x="9" y="9" width="102" height="62" rx="6"/>
+          <line class="ln" x1="39" y1="9" x2="39" y2="71"/>
+          <line class="ln" x1="74" y1="9" x2="74" y2="71"/>
+          <line class="ln" x1="9" y1="28" x2="111" y2="28"/>
+          <line class="ln" x1="9" y1="49" x2="111" y2="49"/>
+          <rect class="fl" x="18" y="16" width="13" height="5" rx="2"/>
+          <rect class="ol" x="48" y="16" width="19" height="5" rx="2"/>
+          <rect class="cl" x="84" y="16" width="18" height="5" rx="2"/>
+          <line class="ln" x1="18" y1="38" x2="31" y2="38"/>
+          <line class="ln" x1="48" y1="38" x2="66" y2="38"/>
+          <rect class="wh" x="76" y="36" width="30" height="15" rx="4"/>
+          <line class="lc da" x1="81" y1="44" x2="101" y2="44"/>
+          <path class="lc da" d="M15 60 H105"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">06</span><span class="tag">Schema</span></div>
+        <h3>Schema drift</h3>
+        <p class="intent">의도: 테이블/데이터 모델의 drift 위험을 작게 압축.</p>
+        <p class="desc">matrix 구조는 gray grid, drift cell은 clay dashed interior, 영향 범위는 하단 dashed band로 표시합니다.</p>
+        <div class="style-note">Style: table grid + highlighted drift cell + dashed impact band <span class="arrow">→</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <svg viewBox="0 0 120 80" aria-label="Interaction toolbar SVG">
+          <rect class="sl" x="9" y="14" width="102" height="44" rx="8"/>
+          <rect class="cl" x="17" y="22" width="14" height="14" rx="4"/>
+          <line class="ln" x1="42" y1="29" x2="52" y2="29" style="stroke:#FAF9F5"/>
+          <line class="ln" x1="62" y1="22" x2="74" y2="36" style="stroke:#FAF9F5"/>
+          <rect class="wh" x="83" y="23" width="13" height="12" rx="3"/>
+          <circle class="cl" cx="42" cy="46" r="4"/>
+          <circle class="ol" cx="55" cy="46" r="4"/>
+          <circle class="oa" cx="68" cy="46" r="4"/>
+          <circle class="st" cx="81" cy="46" r="4"/>
+          <line class="lc da" x1="18" y1="66" x2="98" y2="66"/>
+          <circle class="cl" cx="48" cy="66" r="3"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">07</span><span class="tag">Toolbar</span></div>
+        <h3>Interaction toolbar</h3>
+        <p class="intent">의도: 클릭 가능한 도구막대나 mock UI를 작은 SVG로 표현.</p>
+        <p class="desc">어두운 toolbar, clay active tool, swatch row, progress line을 조합해 실제 조작면을 암시합니다.</p>
+        <div class="style-note">Style: slate toolbar + icon glyphs + swatches + progress marker <span class="arrow">→</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <svg viewBox="0 0 120 80" aria-label="Handoff pitch SVG">
+          <rect class="wh" x="8" y="8" width="104" height="64" rx="6"/>
+          <rect class="oa" x="16" y="16" width="54" height="28" rx="4"/>
+          <path class="cl" d="M38 23 L50 30 L38 37 Z"/>
+          <line class="ln" x1="78" y1="21" x2="104" y2="21"/>
+          <line class="ln" x1="78" y1="31" x2="100" y2="31"/>
+          <line class="lc" x1="78" y1="41" x2="94" y2="41"/>
+          <line class="ln" x1="16" y1="55" x2="72" y2="55"/>
+          <line class="ln" x1="16" y1="64" x2="58" y2="64"/>
+          <rect class="ol" x="86" y="54" width="22" height="12" rx="6"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">08</span><span class="tag">Pitch</span></div>
+        <h3>Handoff pitch</h3>
+        <p class="intent">의도: 리뷰어나 의사결정자에게 보여줄 buy-in artifact.</p>
+        <p class="desc">데모 영상 블록, 근거 라인, 승인 pill을 배치해 “설명 가능한 산출물”임을 보여줍니다.</p>
+        <div class="style-note">Style: mini video + proof copy + approval pill <span class="arrow">→</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <svg viewBox="0 0 120 80" aria-label="Quiz readiness SVG">
+          <rect class="wh" x="7" y="10" width="106" height="28" rx="5"/>
+          <line class="ln" x1="16" y1="19" x2="68" y2="19"/>
+          <line class="ln" x1="16" y1="28" x2="90" y2="28"/>
+          <rect class="oa" x="82" y="15" width="22" height="10" rx="3"/>
+          <rect class="wh" x="7" y="47" width="106" height="12" rx="4"/>
+          <circle class="ol" cx="17" cy="53" r="4"/>
+          <line class="ln" x1="28" y1="53" x2="84" y2="53"/>
+          <rect class="wh" x="7" y="64" width="106" height="12" rx="4"/>
+          <circle class="cl" cx="17" cy="70" r="4"/>
+          <line class="ln" x1="28" y1="70" x2="68" y2="70"/>
+          <path class="lc" d="M96 66 l4 5 l7 -8"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">09</span><span class="tag">Quiz</span></div>
+        <h3>Merge readiness quiz</h3>
+        <p class="intent">의도: 내가 변경 내용을 실제로 이해했는지 확인하는 퀴즈.</p>
+        <p class="desc">상단 질문 카드, 아래 답변 row, pass/fail marker로 “검수 전 점검”의 느낌을 만듭니다.</p>
+        <div class="style-note">Style: question block + answer rows + clay check path <span class="arrow">→</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <svg viewBox="0 0 120 80" aria-label="Unknown territory map SVG">
+          <rect class="wh" x="10" y="8" width="100" height="64" rx="6"/>
+          <path class="oa" d="M12 52 Q 34 34 56 50 T 108 44 L108 70 L12 70 Z"/>
+          <path class="ol" d="M12 62 Q 44 50 76 61 T108 58 L108 70 L12 70 Z"/>
+          <circle class="cl" cx="82" cy="22" r="8"/>
+          <circle class="lc da" cx="82" cy="22" r="17"/>
+          <path class="lc" d="M34 24 C 46 18, 54 24, 62 18"/>
+          <path class="ln da" d="M22 43 C 36 39, 45 43, 58 38"/>
+          <rect class="sl" x="22" y="16" width="28" height="12" rx="4"/>
+          <line class="ln" x1="28" y1="22" x2="43" y2="22" style="stroke:#FAF9F5"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta"><span class="num">10</span><span class="tag">Map</span></div>
+        <h3>Unknown territory map</h3>
+        <p class="intent">의도: map과 territory의 차이를 시각적으로 설명.</p>
+        <p class="desc">땅의 레이어는 territory, 작은 slate label은 현재 map, clay target은 아직 가보지 않은 unknown zone입니다.</p>
+        <div class="style-note">Style: layered terrain + map label + dashed unknown zone <span class="arrow">→</span></div>
+      </div>
+    </article>
+  </section>
+
+  <footer>
+    이 HTML은 원본 페이지에서 관찰한 SVG 문법을 응용한 샘플입니다. 정식 스킬에 넣을 때는 이 10개 타입을 <code>assets/svg-sample-types.html</code> 또는 <code>references/svg-style-guide.md</code>로 분리하면 됩니다.
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,34 @@
+:root {
+  /* Core palette extracted from the referenced visual language */
+  --ue-ivory: #FAF9F5;
+  --ue-paper: #FFFFFF;
+  --ue-slate: #141413;
+  --ue-clay: #D97757;
+  --ue-clay-d: #B85C3E;
+  --ue-oat: #E3DACC;
+  --ue-olive: #788C5D;
+  --ue-g100: #F0EEE6;
+  --ue-g200: #E6E3DA;
+  --ue-g300: #D1CFC5;
+  --ue-g500: #87867F;
+  --ue-g700: #3D3D3A;
+
+  /* Typography */
+  --ue-serif: ui-serif, Georgia, "Times New Roman", Times, serif;
+  --ue-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ue-mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+
+  /* Layout */
+  --ue-wrap: 980px;
+  --ue-wrap-wide: 1120px;
+  --ue-pad-x: 24px;
+  --ue-radius-sm: 8px;
+  --ue-radius-md: 10px;
+  --ue-radius-lg: 14px;
+  --ue-border: 1.5px solid var(--ue-g300);
+  --ue-border-soft: 1.5px solid var(--ue-g200);
+  --ue-shadow-hover: 0 10px 30px rgba(20, 20, 19, 0.10);
+  --ue-shadow-final: 0 10px 28px rgba(20, 20, 19, 0.07);
+  --ue-fast: 120ms;
+  --ue-normal: 150ms;
+}

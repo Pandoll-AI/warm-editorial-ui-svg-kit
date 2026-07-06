@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unknowns-style HTML Artifact Starter</title>
+<style>
+:root {
+  /* Core palette extracted from the referenced visual language */
+  --ue-ivory: #FAF9F5;
+  --ue-paper: #FFFFFF;
+  --ue-slate: #141413;
+  --ue-clay: #D97757;
+  --ue-clay-d: #B85C3E;
+  --ue-oat: #E3DACC;
+  --ue-olive: #788C5D;
+  --ue-g100: #F0EEE6;
+  --ue-g200: #E6E3DA;
+  --ue-g300: #D1CFC5;
+  --ue-g500: #87867F;
+  --ue-g700: #3D3D3A;
+
+  /* Typography */
+  --ue-serif: ui-serif, Georgia, "Times New Roman", Times, serif;
+  --ue-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ue-mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+
+  /* Layout */
+  --ue-wrap: 980px;
+  --ue-wrap-wide: 1120px;
+  --ue-pad-x: 24px;
+  --ue-radius-sm: 8px;
+  --ue-radius-md: 10px;
+  --ue-radius-lg: 14px;
+  --ue-border: 1.5px solid var(--ue-g300);
+  --ue-border-soft: 1.5px solid var(--ue-g200);
+  --ue-shadow-hover: 0 10px 30px rgba(20, 20, 19, 0.10);
+  --ue-shadow-final: 0 10px 28px rgba(20, 20, 19, 0.07);
+  --ue-fast: 120ms;
+  --ue-normal: 150ms;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.ue-body {
+  margin: 0;
+  background: var(--ue-ivory);
+  color: var(--ue-slate);
+  font-family: var(--ue-sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ue-wrap {
+  max-width: var(--ue-wrap);
+  margin: 0 auto;
+  padding: 0 var(--ue-pad-x) 100px;
+}
+.ue-wrap-wide { max-width: var(--ue-wrap-wide); }
+
+.ue-page-head { padding: 56px 0 8px; }
+.ue-head-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.ue-eyebrow {
+  font-family: var(--ue-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ue-g500);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ue-eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1.5px;
+  background: var(--ue-clay);
+  flex: none;
+}
+.ue-back {
+  font-family: var(--ue-mono);
+  font-size: 12px;
+  color: var(--ue-g500);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.ue-back:hover { color: var(--ue-clay); }
+
+.ue-h1 {
+  font-family: var(--ue-serif);
+  font-weight: 500;
+  font-size: clamp(32px, 5vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+  margin: 18px 0 10px;
+}
+.ue-h1 em { color: var(--ue-clay); font-style: italic; }
+.ue-lede {
+  font-size: 16px;
+  color: var(--ue-g700);
+  max-width: 680px;
+  margin: 0 0 28px;
+}
+
+.ue-prompt-card,
+.ue-card,
+.ue-artifact,
+.ue-insight-card,
+.ue-final-card {
+  background: var(--ue-paper);
+  border: var(--ue-border);
+  border-radius: var(--ue-radius-lg);
+}
+.ue-prompt-card {
+  padding: 22px 26px 24px;
+  position: relative;
+}
+.ue-prompt-label,
+.ue-final-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ue-prompt-label {
+  font-family: var(--ue-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ue-clay);
+  margin-bottom: 12px;
+}
+.ue-prompt {
+  margin: 0;
+  font-family: var(--ue-serif);
+  font-style: italic;
+  font-size: 17.5px;
+  line-height: 1.55;
+  color: var(--ue-slate);
+  border-left: 3px solid var(--ue-oat);
+  padding-left: 18px;
+}
+.ue-copy-btn {
+  font-family: var(--ue-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ue-g700);
+  background: var(--ue-g100);
+  border: var(--ue-border);
+  border-radius: var(--ue-radius-sm);
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: border-color var(--ue-fast), color var(--ue-fast), background var(--ue-fast);
+  white-space: nowrap;
+}
+.ue-copy-btn:hover { border-color: var(--ue-clay); color: var(--ue-clay-d); }
+.ue-copy-btn.is-copied { background: var(--ue-olive); border-color: var(--ue-olive); color: var(--ue-paper); }
+
+.ue-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 44px 0 32px;
+  font-family: var(--ue-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ue-g500);
+  white-space: nowrap;
+}
+.ue-divider::before,
+.ue-divider::after {
+  content: "";
+  flex: 1;
+  height: 1.5px;
+  background: var(--ue-g300);
+}
+
+.ue-artifact { overflow: hidden; }
+.ue-artifact-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-bottom: var(--ue-border-soft);
+  background: var(--ue-g100);
+}
+.ue-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ue-g300); }
+.ue-file {
+  font-family: var(--ue-mono);
+  font-size: 11.5px;
+  color: var(--ue-g500);
+  margin-left: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ue-artifact-body { padding: 34px 34px 40px; }
+@media (max-width: 560px) { .ue-artifact-body { padding: 24px 18px 30px; } }
+
+.ue-h2 {
+  font-family: var(--ue-serif);
+  font-weight: 500;
+  font-size: 27px;
+  letter-spacing: -0.014em;
+  line-height: 1.15;
+  margin: 0 0 6px;
+}
+.ue-sub {
+  font-size: 14px;
+  color: var(--ue-g500);
+  margin: 0 0 24px;
+}
+.ue-code,
+.ue-artifact-body code,
+.ue-insight-card code,
+.ue-bite code {
+  font-family: var(--ue-mono);
+  font-size: 12px;
+  background: var(--ue-g100);
+  border: 1px solid var(--ue-g200);
+  border-radius: 5px;
+  padding: 1px 5px;
+  color: var(--ue-g700);
+  word-break: break-word;
+}
+
+.ue-vs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 34px;
+}
+@media (max-width: 640px) { .ue-vs-grid { grid-template-columns: 1fr; } }
+.ue-vs-cell {
+  border: var(--ue-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  background: var(--ue-ivory);
+}
+.ue-vs-cell.is-actual { border-color: var(--ue-clay); background: #FBF3EF; }
+.ue-vs-tag,
+.ue-art-eyebrow {
+  font-family: var(--ue-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ue-g500);
+}
+.ue-vs-cell.is-actual .ue-vs-tag { color: var(--ue-clay-d); }
+.ue-vs-cell p { margin: 8px 0 0; font-size: 14px; color: var(--ue-g700); }
+.ue-vs-cell strong { color: var(--ue-slate); }
+
+.ue-stat-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+  padding: 14px 18px;
+  border: var(--ue-border-soft);
+  border-radius: 12px;
+  background: var(--ue-g100);
+  margin-bottom: 36px;
+  font-family: var(--ue-mono);
+  font-size: 12px;
+  color: var(--ue-g700);
+}
+.ue-stat-strip b { color: var(--ue-slate); font-weight: 600; }
+.ue-stat-strip .is-warn b { color: var(--ue-clay-d); }
+
+.ue-art-eyebrow {
+  font-size: 11.5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+}
+.ue-art-eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1.5px;
+  background: var(--ue-clay);
+  flex: none;
+}
+
+.ue-insight-card {
+  padding: 20px 22px 18px;
+  margin-bottom: 16px;
+}
+.ue-insight-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.ue-badge {
+  font-family: var(--ue-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1.5px solid;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.ue-badge-risk { color: var(--ue-clay-d); border-color: var(--ue-clay); background: #FBF0EA; }
+.ue-badge-history { color: #8A6A3B; border-color: #C9B48E; background: var(--ue-oat); }
+.ue-badge-process { color: var(--ue-g700); border-color: var(--ue-g300); background: var(--ue-g100); }
+.ue-badge-concept { color: #55663F; border-color: var(--ue-olive); background: #EFF2E9; }
+.ue-num { font-family: var(--ue-mono); font-size: 11px; color: var(--ue-g500); }
+.ue-insight-title {
+  font-family: var(--ue-serif);
+  font-weight: 500;
+  font-size: 18.5px;
+  letter-spacing: -0.01em;
+  color: var(--ue-slate);
+  margin: 0;
+  flex: 1 1 100%;
+}
+.ue-insight-card p { font-size: 14px; color: var(--ue-g700); margin: 0 0 10px; }
+.ue-bite {
+  display: flex;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--ue-g700);
+  background: var(--ue-ivory);
+  border-left: 3px solid var(--ue-clay);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  margin: 12px 0;
+}
+.ue-bite-tag {
+  font-family: var(--ue-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ue-clay-d);
+  flex: none;
+  padding-top: 2px;
+}
+
+.ue-chip-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin-top: 12px;
+}
+.ue-prompt-chip {
+  flex: 1;
+  font-family: var(--ue-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ue-slate);
+  background: var(--ue-g100);
+  border: var(--ue-border);
+  border-radius: 9px;
+  padding: 10px 13px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.ue-prompt-chip::before { content: "› "; color: var(--ue-clay); font-weight: 600; }
+@media (max-width: 480px) {
+  .ue-chip-row { flex-direction: column; }
+  .ue-chip-row .ue-copy-btn { align-self: flex-end; }
+}
+
+.ue-final-card {
+  border-color: var(--ue-slate);
+  padding: 24px 26px 26px;
+  margin-top: 38px;
+  box-shadow: var(--ue-shadow-final);
+}
+.ue-final-head .ue-art-eyebrow { margin: 0; color: var(--ue-clay-d); }
+.ue-final-title {
+  font-family: var(--ue-serif);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.012em;
+  margin: 8px 0 14px;
+}
+.ue-final-prompt {
+  font-family: var(--ue-mono);
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--ue-slate);
+  background: var(--ue-ivory);
+  border: var(--ue-border-soft);
+  border-radius: 10px;
+  padding: 18px 20px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.ue-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 28px 0 0;
+}
+.ue-pill {
+  font-size: 12.5px;
+  padding: 7px 14px;
+  border: var(--ue-border);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--ue-g700);
+  background: var(--ue-paper);
+  transition: border-color var(--ue-fast), color var(--ue-fast), background var(--ue-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.ue-pill:hover { border-color: var(--ue-slate); color: var(--ue-slate); }
+.ue-pill .ue-pill-num { font-family: var(--ue-mono); font-size: 10px; color: var(--ue-g500); }
+
+.ue-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 28px;
+}
+.ue-gallery-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--ue-paper);
+  border: var(--ue-border);
+  border-radius: var(--ue-radius-lg);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--ue-normal) ease, box-shadow var(--ue-normal) ease, border-color var(--ue-normal) ease;
+  overflow: hidden;
+}
+.ue-gallery-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--ue-shadow-hover);
+  border-color: var(--ue-slate);
+}
+.ue-thumb {
+  height: 120px;
+  background: var(--ue-g100);
+  border-bottom: var(--ue-border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  transition: background var(--ue-normal) ease;
+}
+.ue-gallery-card:hover .ue-thumb { background: var(--ue-oat); }
+.ue-gallery-body { padding: 18px 20px 16px; display: flex; flex-direction: column; flex: 1; }
+.ue-gallery-title {
+  font-family: var(--ue-serif);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.22;
+  color: var(--ue-slate);
+  margin-bottom: 7px;
+  letter-spacing: -0.008em;
+}
+.ue-gallery-desc { font-size: 13.5px; color: var(--ue-g700); line-height: 1.5; margin-bottom: 16px; flex: 1; }
+.ue-gallery-file {
+  font-family: var(--ue-mono);
+  font-size: 11px;
+  color: var(--ue-g500);
+  border-top: 1px solid var(--ue-g100);
+  padding-top: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ue-gallery-card:hover .ue-gallery-file { color: var(--ue-clay); }
+
+.ue-footer {
+  margin-top: 56px;
+  padding-top: 22px;
+  border-top: var(--ue-border-soft);
+  font-size: 13px;
+  color: var(--ue-g500);
+}
+.ue-footer a { color: var(--ue-clay); text-decoration-color: var(--ue-oat); text-underline-offset: 3px; }
+.ue-footer a:hover { text-decoration-color: var(--ue-clay); }
+
+</style>
+</head>
+<body class="ue-body">
+<main class="ue-wrap">
+  <header class="ue-page-head">
+    <div class="ue-head-row">
+      <div class="ue-eyebrow">AI Artifact · Planning</div>
+      <a class="ue-back" href="#">← Back</a>
+    </div>
+    <h1 class="ue-h1">Know the <em>unknowns</em> before implementation</h1>
+    <p class="ue-lede">이 템플릿은 사용자의 원문 지시와 에이전트 산출물을 한 화면에서 연결해 보여주는 self-contained HTML 문서입니다.</p>
+
+    <section class="ue-prompt-card">
+      <div class="ue-prompt-label">
+        <span>The prompt</span>
+        <button class="ue-copy-btn" data-copy-target="user-prompt">Copy prompt</button>
+      </div>
+      <blockquote class="ue-prompt" id="user-prompt">우리 팀의 신규 AI 업무 자동화 계획서를 검토하고, 실제 구현 전에 놓치기 쉬운 unknown, 리스크, 확인 질문, 보완된 실행 프롬프트를 정리해줘.</blockquote>
+    </section>
+  </header>
+
+  <div class="ue-divider">What the agent produced</div>
+
+  <section class="ue-artifact">
+    <div class="ue-artifact-bar">
+      <span class="ue-dot"></span><span class="ue-dot"></span><span class="ue-dot"></span>
+      <span class="ue-file">unknowns-pass · ai-automation-plan · 12 sections scanned</span>
+    </div>
+    <div class="ue-artifact-body">
+      <h2 class="ue-h2">Implementation unknowns: AI automation plan</h2>
+      <p class="ue-sub">계획은 좋아 보이지만, 실제 구현 단계에서는 데이터 접근권한, 예외 처리, 운영 책임, 감사 로그, 실패 시 fallback이 가장 먼저 문제가 됩니다.</p>
+
+      <div class="ue-vs-grid">
+        <div class="ue-vs-cell">
+          <div class="ue-vs-tag">What you asked for</div>
+          <p><strong>자동화 시스템 구축</strong> — 도구를 만들고 부서에 배포하면 되는 일처럼 보입니다.</p>
+        </div>
+        <div class="ue-vs-cell is-actual">
+          <div class="ue-vs-tag">What you are actually walking into</div>
+          <p><strong>운영 프로덕트 전환</strong> — 권한, 감사, 오류, 예산, 교육, 현업 수용성을 함께 설계해야 합니다.</p>
+        </div>
+      </div>
+
+      <div class="ue-stat-strip">
+        <span><b>7</b> blindspots</span>
+        <span><b>3</b> policy gaps</span>
+        <span class="is-warn"><b>2</b> high-risk assumptions</span>
+        <span><b>1</b> improved prompt</span>
+      </div>
+
+      <div class="ue-art-eyebrow">The blindspots</div>
+
+      <article class="ue-insight-card">
+        <div class="ue-insight-head">
+          <span class="ue-badge ue-badge-risk">Risk</span>
+          <span class="ue-num">01</span>
+          <h3 class="ue-insight-title">데이터 접근이 “가능하다”와 “운영 가능하다”는 다릅니다</h3>
+        </div>
+        <p>초기 PoC에서는 샘플 파일로 충분하지만, 운영 단계에서는 권한, 로깅, 비식별화, 재현 가능한 쿼리 경로가 필요합니다.</p>
+        <div class="ue-bite"><span class="ue-bite-tag">Why it bites</span><span>시연은 성공했는데 실제 업무망에서 접근 불가하거나 감사 대응이 안 되는 상황이 생깁니다.</span></div>
+        <div class="ue-chip-row">
+          <pre class="ue-prompt-chip" id="chip-1">데이터 접근 경로, 권한 승인, 감사 로그, 실패 시 fallback을 먼저 표로 검증해줘.</pre>
+          <button class="ue-copy-btn" data-copy-target="chip-1">Copy</button>
+        </div>
+      </article>
+
+      <article class="ue-insight-card">
+        <div class="ue-insight-head">
+          <span class="ue-badge ue-badge-process">Process</span>
+          <span class="ue-num">02</span>
+          <h3 class="ue-insight-title">업무 책임자가 없는 자동화는 배포 후 방치됩니다</h3>
+        </div>
+        <p>자동화 산출물의 소유자, 오류 신고 경로, 수동 대체 절차, 업데이트 주기를 미리 정해야 합니다.</p>
+        <div class="ue-bite"><span class="ue-bite-tag">Action</span><span>각 자동화마다 <code>owner</code>, <code>review cadence</code>, <code>rollback</code>을 요구하세요.</span></div>
+      </article>
+
+      <article class="ue-insight-card">
+        <div class="ue-insight-head">
+          <span class="ue-badge ue-badge-concept">Concept</span>
+          <span class="ue-num">03</span>
+          <h3 class="ue-insight-title">LLM 정확도보다 “판단 경계”가 더 중요한 경우가 많습니다</h3>
+        </div>
+        <p>모델이 답을 잘하는지보다, 언제 답하지 않고 사람에게 넘겨야 하는지를 정의하는 것이 안전한 운영의 핵심입니다.</p>
+      </article>
+
+      <section class="ue-final-card">
+        <div class="ue-final-head">
+          <div class="ue-art-eyebrow">Your improved prompt</div>
+          <button class="ue-copy-btn" data-copy-target="final-prompt">Copy prompt</button>
+        </div>
+        <h3 class="ue-final-title">Everything above, folded into a better implementation prompt</h3>
+        <pre class="ue-final-prompt" id="final-prompt">AI 업무 자동화 계획서를 운영 프로덕트 관점에서 검토해줘.
+
+반드시 다음을 확인해:
+1. 데이터 접근 경로와 권한 승인
+2. 감사 로그와 보안 요구사항
+3. 오류 발생 시 fallback과 수동 대체 절차
+4. 업무 책임자와 운영 주기
+5. 모델이 답하면 안 되는 판단 경계
+6. PoC에서 운영 전환 시 추가로 필요한 개발 항목
+
+출력은 unknown cards, risk table, 보완된 실행 계획, 최종 구현 프롬프트 순서로 정리해줘.</pre>
+      </section>
+    </div>
+  </section>
+
+  <footer class="ue-footer">Part of the extracted design kit · no build step · single HTML artifact.</footer>
+</main>
+<script>
+(function () {
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    return Promise.resolve();
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-copy-target]');
+    if (!btn) return;
+    var el = document.getElementById(btn.getAttribute('data-copy-target'));
+    if (!el) return;
+    copyText(el.innerText || el.textContent).then(function () {
+      var old = btn.textContent;
+      btn.textContent = 'Copied';
+      btn.classList.add('is-copied');
+      setTimeout(function () { btn.textContent = old; btn.classList.remove('is-copied'); }, 1100);
+    });
+  });
+})();
+</script>
+</body>
+</html>
